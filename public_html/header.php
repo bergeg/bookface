@@ -1,10 +1,10 @@
-<?php    // header.php
+<?php	// header.php
 include 'functions.php';
 session_start();
 session_regenerate_id(true);
 
 if (isset($_SESSION['username'])) {
-    $username = $_SESSION['username'];
+	$username = $_SESSION['username'];
 	$loggedIn = TRUE;
 }
 else $loggedIn = FALSE;

@@ -8,7 +8,7 @@ if (loggedIn)
 	destroySession();
 
 if (isset($_POST['username'])) {
-    $username = sanitize($_POST['username']);
+	$username = sanitize($_POST['username']);
 	$pass = sanitize($_POST['pass']);
 	$error = "";
 	
@@ -30,15 +30,15 @@ if (isset($_POST['username'])) {
 		}, 200);';
 	}
 	else if (strlen($username)<2) {
-        $error = "Username is less than 2 chars. <br> Try again";
+		$error = "Username is less than 2 chars. <br> Try again";
 		$js='$("#tip-username").animate({
 			"opacity":"1",
 			"height":"50px",
 			"padding-top":"10px"
 		}, 200);';
-    }
+	}
 	else if (strlen($username)>15) {
-	    $error = "Username is more than 15 chars. <br> Try again";
+		$error = "Username is more than 15 chars. <br> Try again";
 		$js='$("#tip-username").animate({
 			"opacity":"1",
 			"height":"50px",
@@ -46,7 +46,7 @@ if (isset($_POST['username'])) {
 		}, 200);';
 	}
 	else if (strlen($pass)<6) {
-        $error = "Password must be at least 6 chars. Try again";
+		$error = "Password must be at least 6 chars. Try again";
 		$js='$("#tip-username").animate({
 			"opacity":"0"
 		}, 200);
@@ -55,9 +55,9 @@ if (isset($_POST['username'])) {
 			"height":"50px",
 			"padding-top":"10px"
 		}, 200);';
-    }
+	}
 	else if ($_POST['pass'] != $_POST['pass-conf']) {
-        $error = "Password did not match. <br>Try again";
+		$error = "Password did not match. <br>Try again";
 		$pass = "";
 		$js='$("#tip-username").animate({
 			"opacity":"0"
@@ -67,10 +67,10 @@ if (isset($_POST['username'])) {
 			"height":"50px",
 			"padding-top":"10px"
 		}, 200);';
-    } else {
-	    $query = "SELECT * FROM members WHERE username='$username'";
+	} else {
+		$query = "SELECT * FROM members WHERE username='$username'";
 		if (mysql_num_rows(queryMysql($query))) {
-		    $error = "Username already taken. <br>Try again";
+			$error = "Username already taken. <br>Try again";
 			$username = "" ; 
 			$pass = "" ; 
 			$passconf = "";
@@ -79,12 +79,12 @@ if (isset($_POST['username'])) {
 				"height":"50px",
 				"padding-top":"10px"
 			}, 200);';
-	    } else { 
+		} else { 
 			$pass = password_hash($pass, PASSWORD_BCRYPT);
-            queryMysql("INSERT INTO members VALUES(LOWER('$username'), '$pass')");
-            die("<center><h4>Account created</h4>Please Log in.</center><br /><br />");
-        }
-    }
+			queryMysql("INSERT INTO members VALUES(LOWER('$username'), '$pass')");
+			die("<center><h4>Account created</h4>Please Log in.</center><br /><br />");
+		}
+	}
 }
 ob_end_flush();
 ?>
@@ -106,8 +106,8 @@ $(document).ready(function() {
 				'opacity':'0',
 				'height':'0px',
 				"padding-top":"0"
-			}, 200);	
-		}
+			}, 200);
+			}
 		else if (/^[^a-z]{1}|[^-a-z0-9_.-]/i.test(username) == true) {
 			$("#username").removeClass('textbox-ok')
 			.addClass("textbox-error");
@@ -126,13 +126,13 @@ $(document).ready(function() {
 			"background-color":"white"
 			});
 			
-			$.ajax({  
+			$.ajax({
 				type: "POST",
-				cache: false,	
-				url: "ajax_checkusername.php",  
-				data: "username=" + username, 
-				success: function(msg) {  
-					if (msg == 'OK') { 
+				cache: false,
+				url: "ajax_checkusername.php",
+				data: "username=" + username,
+				success: function(msg) {
+					if (msg == 'OK') {
 						$("#username").removeClass('textbox-error')
 						.addClass("textbox-ok")
 						$("#tip-username").animate({
@@ -140,7 +140,7 @@ $(document).ready(function() {
 							"height":"0px",
 							"padding-top":"0"
 						}, 200);
-					} else {  
+					} else {
 						$("#username").removeClass('textbox-ok')
 						.addClass("textbox-error")
 						$("#tip-username").html('Username already taken')
@@ -150,7 +150,7 @@ $(document).ready(function() {
 							"padding-top":"10px"
 						}, 200);
 					}
-				} 
+				}
 			}); 
 		} else {
 			$("#username").removeClass('textbox-ok')
@@ -179,7 +179,7 @@ $(document).ready(function() {
 			$('#tip-pass').animate({
 				'opacity':'0',
 				'height':'0px'
-			}, 200);	
+			}, 200);
 		}
 		else if (password.length < 6){
 			$("#password").removeClass('textbox-ok')
@@ -209,7 +209,7 @@ $(document).ready(function() {
 			$("#password").removeClass('textbox-error')
 			.addClass("textbox-ok");
 			$("#pass-conf").removeClass('textbox-error')
-			.addClass("textbox-ok");	
+			.addClass("textbox-ok");
 			$("#tip-pass").animate({
 				"opacity":"0",
 				"height":"0"
@@ -228,7 +228,7 @@ $(document).ready(function() {
 						<div align=center><input class="textbox" id="password" size="25" type="password" name="pass" placeholder="Password"></div>
 						<div align=center><input class="textbox" id="pass-conf" size="25" type="password" name="pass-conf" placeholder="Repeat Password"></div>
 					</td>
-					<td><div align=center><input class="btn" id='submit-signup-btn' type='submit' value='Signup' height="150px"/></div></td>	
+					<td><div align=center><input class="btn" id='submit-signup-btn' type='submit' value='Signup' height="150px"/></div></td>
 				</tr>
 				<tr>
 					<td>
@@ -236,7 +236,7 @@ $(document).ready(function() {
 						<span class="tip" id="tip-pass"><?= $error; ?></span>
 					</td>
 				</tr>
-			</table>	
+			</table>
 		</form>
 	</body>
 </html>

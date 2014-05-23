@@ -1,11 +1,11 @@
-<?php    // login.php
+<?php	// login.php
 ob_start();
 include_once 'header.php';
 require 'password.php';
 $error = $username = $pass = "";
 
 if (isset($_POST['username'])) {
-    $username = sanitize($_POST['username']);
+	$username = sanitize($_POST['username']);
 	$pass = sanitize($_POST['pass']);
 	$hash = password_hash($pass, PASSWORD_BCRYPT);
 	$data = queryMysql("SELECT pass FROM members WHERE username='$username'");
@@ -20,17 +20,17 @@ if (isset($_POST['username'])) {
 		}, 200);';		
 	}
 	else if (password_verify($pass, $fetchedPass)) {
-        $_SESSION['username'] = $username;
+		$_SESSION['username'] = $username;
 		$_SESSION['pass'] = $pass;
 		header("location:members.php?view=$username");
-    } else {
+	} else {
 		$error = "Incorrect Username/Password";
 		$js = '$("#tip-username").animate({
 		"opacity":"1",
 		"height":"30px",
 		"padding-top":"10px"
 		}, 200);';
-    }
+	}
 }
 ob_end_flush();
 ?>

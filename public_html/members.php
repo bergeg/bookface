@@ -1,12 +1,12 @@
-<?php    // members.php
+<?php	// members.php
 include_once 'header.php';
 
 if (!$loggedIn)
-    die("<br /><center>You must be logged in to view this page</center>");
+	die("<br /><center>You must be logged in to view this page</center>");
 $username = $_SESSION['username'];
 
 if (isset($_GET['view'])) {
-    $view = sanitize($_GET['view']);
+	$view = sanitize($_GET['view']);
 	if ($view == $username) {
 		$username = "Your";
 	}
@@ -60,7 +60,7 @@ if (isset($_GET['add'])) {
 	$username = $_SESSION['username'];
 	$query = "SELECT * FROM friends WHERE username='$username' AND friend='$add'";
 	if (!mysql_num_rows(queryMysql($query))) {
-	    $query = "INSERT INTO friends VALUES ('$username', '$add')";
+		$query = "INSERT INTO friends VALUES ('$username', '$add')";
 		queryMysql($query);
 	}
 	showProfile($add);
@@ -79,21 +79,21 @@ if (isset($_GET['add'])) {
 	$follow = "follow";
 	
 	if ($following) {
-	    echo " &larr; you are following";
+		echo " &larr; you are following";
 	}
 	else if ($follower) {
-	    $follow = "follow back";
+		$follow = "follow back";
 		echo " &rarr; is following you";
 	}
 	
 	if (!$following) {
-	    echo " [<a href='members.php?add=$add'>$follow</a>]";
+		echo " [<a href='members.php?add=$add'>$follow</a>]";
 	} else {
-	    echo "[<a href='members.php?remove=$add'>unfollow</a>]";
+		echo "[<a href='members.php?remove=$add'>unfollow</a>]";
 	}
 }
 elseif (isset($_GET['remove'])) {
-    $remove = sanitize($_GET['remove']);
+	$remove = sanitize($_GET['remove']);
 	echo "<h3>$remove's Page</h3>";
 	$username = $_SESSION['username'];
 	$query = "DELETE FROM friends WHERE username = '$username' AND friend='$remove'";
@@ -114,17 +114,17 @@ elseif (isset($_GET['remove'])) {
 	$follow = "follow";
 	
 	if ($following) {
-	    echo " &larr; you are following";
+		echo " &larr; you are following";
 	}
 	else if ($follower) {
-	    $follow = "follow back";
+		$follow = "follow back";
 		echo " &rarr; is following you";
 	}
 	
 	if (!$following) {
-	    echo " [<a href='members.php?add=$remove'>$follow</a>]";
+		echo " [<a href='members.php?add=$remove'>$follow</a>]";
 	} else {
-	    echo "[<a href='members.php?remove=$remove'>unfollow</a>]";
+		echo "[<a href='members.php?remove=$remove'>unfollow</a>]";
 	}
 }
 

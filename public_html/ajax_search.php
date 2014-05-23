@@ -7,6 +7,6 @@ if (isset($_POST['username'])) {
 	for ($j=0; $j<$num; ++$j) {
 		$row = mysql_fetch_row($result);
 		echo "<a href='members.php?view=$row[0]'>$row[0]</a><br>";
-    }
+	}
 }
 ?>
